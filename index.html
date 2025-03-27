@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="text-align: center">
+    <h1>귀여운 댕댕이🐶</h1>
+    <div class="imgWrapper"></div>
+    <button class="nextBtn">다른 댕댕이를 보여줘</button>
+    <script>
+      const nextBtn = document.querySelector(".nextBtn");
+      const imgWrapper = document.querySelector(".imgWrapper");
+
+      const getDogImage = async () => {
+        try {
+          const response = await fetch(
+            "https://dog.ceo/api/breeds/image/random"
+          );
+          const data = await response.json();
+          const dogImg = document.createElement("img");
+          dogImg.src = data.message;
+          dogImg.style.maxWidth = "400px";
+          if (imgWrapper.firstElementChild) {
+            imgWrapper.firstElementChild.remove();
+          }
+          imgWrapper.appendChild(dogImg);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      getDogImage();
+      nextBtn.addEventListener("click", getDogImage);
+    </script>
+  </body>
+</html>
